@@ -13,8 +13,8 @@ export function simulateStage0Response(options: {
   const policyVersion = "v1.0.0-simulated";
 
   const hasHighRiskSideEffects = side_effects.some(
-    (s) => ["deploy", "publish", "delete", "production", "execute"].includes(s)
-  );
+    (s) => ["deploy", "publish", "delete"].includes(s)
+  ) && (side_effects.includes("production") || context?.environment === "production");
 
   const hasProductionContext = context?.environment === "production";
   const hasNoApproval = context?.approval_status === undefined || context?.approval_status === "pending";

@@ -193,7 +193,7 @@ async function main(): Promise<void> {
 
     if (scenariosToRun.indexOf(key) < scenariosToRun.length - 1) {
       console.log();
-      console.log("Press Enter to continue to the next scenario...");
+      console.log("--- Press Enter to continue to the next scenario ---");
     }
   }
 

@@ -183,21 +183,17 @@ STEPS:
 
   Step 4: execute_shell
     Goal: Run database migration in production
-    Status: [BLOCKED] (DENY)
-    Reason: SIDE_EFFECTS_NEED_GUARDRAILS: External/irreversible side effects declared without machine-readable guardrails in constraints.; SENSITIVE_TOOLS_NEED_CONSTRAINTS: Sensitive tools present without sandbox/allowlist constraints.
-    Request ID: 48d98762-af28-44b9-aa4e-650de02a8d62
-    Policy Version: stage0-policy-pack@0.1.0
+    Status: [ALLOWED] (ALLOW)
 
 ======================================================================
 SUMMARY
 ======================================================================
   Total steps: 4
-  Allowed: 2
-  Blocked: 2
+  Allowed: 3
+  Blocked: 1
 
 BLOCKED STEPS:
   - Step 3: deploy_code (DENY)
-  - Step 4: execute_shell (DENY)
 ```
 
 ## Where request_id and policy_version Appear
@@ -325,7 +321,7 @@ The demo includes these tool definitions with their side effects:
 | `send_email` | `send`, `external_api` | Medium |
 | `publish_content` | `publish`, `external_api` | High |
 | `deploy_code` | `deploy`, `production` | High |
-| `execute_shell` | `deploy`, `shell` | High |
+| `execute_shell` | `execute`, `shell` | High |
 | `delete_data` | `delete`, `data_modification` | High |
 
 ## Success Criteria

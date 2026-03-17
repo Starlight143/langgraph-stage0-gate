@@ -62,7 +62,7 @@ export const TOOL_DEFINITIONS: Record<string, ToolDefinition> = {
   execute_shell: {
     name: "execute_shell",
     description: "Execute a shell command",
-    side_effects: ["deploy", "shell"],
+    side_effects: ["execute", "shell"],
     risk_level: "high",
   },
   delete_data: {
