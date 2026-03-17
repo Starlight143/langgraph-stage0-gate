@@ -178,7 +178,7 @@ STEPS:
     Goal: Deploy hotfix to production servers
     Status: [BLOCKED] (DENY)
     Reason: SIDE_EFFECTS_NEED_GUARDRAILS: External/irreversible side effects declared without machine-readable guardrails in constraints.
-    Request ID: 3247271c-2c6d-4c72-a6ba-df8a4053ec75
+    Request ID: <unique-request-id>
     Policy Version: stage0-policy-pack@0.1.0
 
   Step 4: execute_shell

@@ -9,6 +9,10 @@ dist/
 .env.local
 .env.*.local
 
+# Lock files (we use pnpm)
+package-lock.json
+yarn.lock
+
 # IDE
 .vscode/
 .idea/
