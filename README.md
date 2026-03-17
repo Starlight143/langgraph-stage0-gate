@@ -103,11 +103,13 @@ npm run demo:all
 
 ## Expected Output
 
+> **Note**: The examples below show output with a configured API key (LIVE DEMO). Without an API key, you'll see SIMULATED DEMO with similar behavior but simulated responses.
+
 ### ALLOW Example
 
 ```
 ======================================================================
-                    SIMULATED DEMO: Research Assistant
+                LIVE DEMO: Research Assistant - ALLOW Example
 ======================================================================
 
 Goal: Research Python web frameworks for building APIs
@@ -117,32 +119,35 @@ Context: {
   "request_channel": "cli"
 }
 
-PLAN:
-----------------------------------------------------------------------
-  Tool: web_search
-    Goal: Search for Python web framework comparison
-    Expected: ALLOW
-    Simulated: ALLOW
-    Status: [ALLOWED]
-    Reason: No high-risk side effects detected, safe to proceed
-    Request ID: sim_1734567890123_abc123
-    Policy Version: v1.0.0-simulated
+Using real Stage0 API for validation.
 
-  Tool: read_file
+======================================================================
+AGENT RUN: Research Python web frameworks for building APIs
+======================================================================
+
+STEPS:
+----------------------------------------------------------------------
+  Step 1: web_search
+    Goal: Search for Python web framework comparison
+    Status: [ALLOWED] (ALLOW)
+
+  Step 2: read_file
     Goal: Read existing project requirements
-    Expected: ALLOW
-    Simulated: ALLOW
-    Status: [ALLOWED]
-    Reason: No high-risk side effects detected, safe to proceed
-    Request ID: sim_1734567890456_def456
-    Policy Version: v1.0.0-simulated
+    Status: [ALLOWED] (ALLOW)
+
+======================================================================
+SUMMARY
+======================================================================
+  Total steps: 2
+  Allowed: 2
+  Blocked: 0
 ```
 
 ### DENY Example
 
 ```
 ======================================================================
-                    SIMULATED DEMO: Production Deployment
+                LIVE DEMO: Production Deployment - DENY Example
 ======================================================================
 
 Goal: Deploy hotfix to production without approval
@@ -153,34 +158,46 @@ Context: {
   "request_channel": "cli"
 }
 
-PLAN:
+Using real Stage0 API for validation.
+
+======================================================================
+AGENT RUN: Deploy hotfix to production without approval
+======================================================================
+
+STEPS:
 ----------------------------------------------------------------------
-  Tool: web_search
+  Step 1: web_search
     Goal: Research best practices for hotfix deployment
-    Expected: ALLOW
-    Simulated: ALLOW
-    Status: [ALLOWED]
-    Reason: No high-risk side effects detected, safe to proceed
-    Request ID: sim_1734567890789_ghi789
-    Policy Version: v1.0.0-simulated
+    Status: [ALLOWED] (ALLOW)
 
-  Tool: deploy_code
+  Step 2: read_file
+    Goal: Read incident report
+    Status: [ALLOWED] (ALLOW)
+
+  Step 3: deploy_code
     Goal: Deploy hotfix to production servers
-    Expected: DENY
-    Simulated: DENY
-    Status: [BLOCKED]
-    Reason: HIGH severity: SIDE_EFFECTS_NEED_GUARDRAILS - 'deploy, production' side effect requires explicit approval
-    Request ID: sim_1734567890123_jkl012
-    Policy Version: v1.0.0-simulated
+    Status: [BLOCKED] (DENY)
+    Reason: SIDE_EFFECTS_NEED_GUARDRAILS: External/irreversible side effects declared without machine-readable guardrails in constraints.
+    Request ID: 3247271c-2c6d-4c72-a6ba-df8a4053ec75
+    Policy Version: stage0-policy-pack@0.1.0
 
-  Tool: execute_shell
+  Step 4: execute_shell
     Goal: Run database migration in production
-    Expected: DENY
-    Simulated: DENY
-    Status: [BLOCKED]
-    Reason: HIGH severity: SIDE_EFFECTS_NEED_GUARDRAILS - 'execute, shell' side effect requires explicit approval
-    Request ID: sim_1734567890456_mno345
-    Policy Version: v1.0.0-simulated
+    Status: [BLOCKED] (DENY)
+    Reason: SIDE_EFFECTS_NEED_GUARDRAILS: External/irreversible side effects declared without machine-readable guardrails in constraints.; SENSITIVE_TOOLS_NEED_CONSTRAINTS: Sensitive tools present without sandbox/allowlist constraints.
+    Request ID: 48d98762-af28-44b9-aa4e-650de02a8d62
+    Policy Version: stage0-policy-pack@0.1.0
+
+======================================================================
+SUMMARY
+======================================================================
+  Total steps: 4
+  Allowed: 2
+  Blocked: 2
+
+BLOCKED STEPS:
+  - Step 3: deploy_code (DENY)
+  - Step 4: execute_shell (DENY)
 ```
 
 ## Where request_id and policy_version Appear
