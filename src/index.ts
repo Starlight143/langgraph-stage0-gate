@@ -104,6 +104,8 @@ async function runRealDemo(client: Stage0Client, scenarioKey: string): Promise<v
     scenario.plan.map((s) => ({
       toolName: s.toolName,
       goal: s.goal,
+      success_criteria: s.success_criteria,
+      constraints: s.constraints,
     }))
   );
 

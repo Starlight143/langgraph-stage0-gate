@@ -32,6 +32,8 @@ export class LangGraphAgent {
   async runPlan(goal: string, plan: Array<{
     toolName: string;
     goal: string;
+    success_criteria?: string[];
+    constraints?: string[];
     arguments?: Record<string, unknown>;
   }>): Promise<AgentRunResult> {
     const steps: AgentStep[] = [];
@@ -51,6 +53,8 @@ export class LangGraphAgent {
       const response = await this.gate.checkToolExecution({
         toolName: step.toolName,
         goal: step.goal,
+        success_criteria: step.success_criteria,
+        constraints: step.constraints,
         arguments: step.arguments,
       });
 

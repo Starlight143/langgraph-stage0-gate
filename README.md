@@ -224,6 +224,8 @@ const client = new Stage0Client();
 async function executeWithGuard(toolName: string, goal: string) {
   const response = await client.checkGoal({
     goal,
+    success_criteria: ["Task completes successfully"],  // What success looks like
+    constraints: ["read-only", "approval_required"],     // Guardrails
     tools: [toolName],
     side_effects: ["deploy"],  // Declare side effects
     context: {
@@ -260,6 +262,8 @@ const gate = new Stage0ToolGate({
 const result = await gate.executeWithGate({
   toolName: "deploy_code",
   goal: "Deploy to production",
+  success_criteria: ["Deployment completes without errors"],
+  constraints: ["dry-run first", "rollback plan required"],
   executor: async () => {
     // Only runs if ALLOWED
     return await deployToProduction();
@@ -304,7 +308,7 @@ The demo includes these tool definitions with their side effects:
 | `send_email` | `send`, `external_api` | Medium |
 | `publish_content` | `publish`, `external_api` | High |
 | `deploy_code` | `deploy`, `production` | High |
-| `execute_shell` | `execute`, `shell` | High |
+| `execute_shell` | `deploy`, `shell` | High |
 | `delete_data` | `delete`, `data_modification` | High |
 
 ## Success Criteria

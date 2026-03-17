@@ -62,7 +62,7 @@ export const TOOL_DEFINITIONS: Record<string, ToolDefinition> = {
   execute_shell: {
     name: "execute_shell",
     description: "Execute a shell command",
-    side_effects: ["execute", "shell"],
+    side_effects: ["deploy", "shell"],
     risk_level: "high",
   },
   delete_data: {
@@ -93,6 +93,8 @@ export class Stage0ToolGate {
   async checkToolExecution(options: {
     toolName: string;
     goal: string;
+    success_criteria?: string[];
+    constraints?: string[];
     arguments?: Record<string, unknown>;
     context?: RuntimeContext;
   }): Promise<PolicyResponse> {
@@ -108,6 +110,8 @@ export class Stage0ToolGate {
 
     const response = await this.client.checkGoal({
       goal: options.goal,
+      success_criteria: options.success_criteria ?? [],
+      constraints: options.constraints ?? [],
       tools: [options.toolName],
       side_effects: tool.side_effects,
       context: mergedContext,
@@ -128,11 +132,20 @@ export class Stage0ToolGate {
   async executeWithGate(options: {
     toolName: string;
     goal: string;
+    success_criteria?: string[];
+    constraints?: string[];
     arguments?: Record<string, unknown>;
     context?: RuntimeContext;
     executor: () => Promise<string>;
   }): Promise<ToolCallResult> {
-    const response = await this.checkToolExecution(options);
+    const response = await this.checkToolExecution({
+      toolName: options.toolName,
+      goal: options.goal,
+      success_criteria: options.success_criteria,
+      constraints: options.constraints,
+      arguments: options.arguments,
+      context: options.context,
+    });
 
     if (response.verdict === Verdict.DENY) {
       return {

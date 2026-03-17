@@ -9,6 +9,8 @@ export interface DemoScenario {
   plan: Array<{
     toolName: string;
     goal: string;
+    success_criteria: string[];
+    constraints: string[];
     expectedVerdict: "ALLOW" | "DENY" | "DEFER";
     reason: string;
   }>;
@@ -32,12 +34,16 @@ export const SCENARIOS: Record<string, DemoScenario> = {
       {
         toolName: "web_search",
         goal: "Search for Python web framework comparison",
+        success_criteria: ["Return relevant framework names and features"],
+        constraints: ["read-only", "no external side effects"],
         expectedVerdict: "ALLOW",
         reason: "Read-only research with no side effects",
       },
       {
         toolName: "read_file",
         goal: "Read existing project requirements",
+        success_criteria: ["Return file content successfully"],
+        constraints: ["read-only", "local files only"],
         expectedVerdict: "ALLOW",
         reason: "Reading local files is safe",
       },
@@ -61,26 +67,34 @@ export const SCENARIOS: Record<string, DemoScenario> = {
       {
         toolName: "web_search",
         goal: "Research best practices for hotfix deployment",
+        success_criteria: ["Return relevant deployment guides"],
+        constraints: ["read-only", "no external side effects"],
         expectedVerdict: "ALLOW",
         reason: "Research is safe",
       },
       {
         toolName: "read_file",
         goal: "Read incident report",
+        success_criteria: ["Return incident details"],
+        constraints: ["read-only", "local files only"],
         expectedVerdict: "ALLOW",
         reason: "Reading is safe",
       },
       {
         toolName: "deploy_code",
         goal: "Deploy hotfix to production servers",
+        success_criteria: ["Deployment completes successfully"],
+        constraints: [],
         expectedVerdict: "DENY",
         reason: "Production deployment requires explicit approval",
       },
       {
         toolName: "execute_shell",
         goal: "Run database migration in production",
+        success_criteria: ["Migration completes"],
+        constraints: [],
         expectedVerdict: "DENY",
-        reason: "Shell execution in production is high-risk",
+        reason: "Shell execution with deploy side effects requires guardrails",
       },
     ],
     whyItMatters: "Production deployments need proper approval flow, not autonomous execution",
