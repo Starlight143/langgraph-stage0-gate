@@ -23,8 +23,16 @@
     "stage0",
     "signalpulse"
   ],
-  "author": "SignalPulse",
+  "author": "Starlight143",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Starlight143/langgraph-stage0-gate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Starlight143/langgraph-stage0-gate/issues"
+  },
+  "homepage": "https://github.com/Starlight143/langgraph-stage0-gate#readme",
   "dependencies": {
     "dotenv": "^16.4.0",
     "uuid": "^9.0.0"

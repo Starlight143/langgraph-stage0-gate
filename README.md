@@ -1,6 +1,8 @@
 # LangGraph Stage0 Gate
 
-A minimal example demonstrating how to integrate [SignalPulse Stage0](https://signalpulse.org) runtime guard with LangGraph agents.
+A minimal example demonstrating how to integrate [SignalPulse Stage0](https://signalpulse.org/docs) runtime guard with LangGraph agents.
+
+**Links**: [Documentation](https://signalpulse.org/docs) | [Dashboard](https://signalpulse.org/dashboard) | [API Keys](https://signalpulse.org/dashboard/settings/api-keys) | [Policy Templates](https://signalpulse.org/policy-templates)
 
 ## Problem Scenario
 
@@ -214,7 +216,8 @@ Every Stage0 `/check` response includes:
 ### Basic Integration
 
 ```typescript
-import { Stage0Client, Verdict } from "langgraph-stage0-gate";
+// Import from local module
+import { Stage0Client, Verdict } from "./stage0/index.js";
 
 const client = new Stage0Client();
 
@@ -243,8 +246,11 @@ async function executeWithGuard(toolName: string, goal: string) {
 ### With LangGraph
 
 ```typescript
-import { Stage0ToolGate, TOOL_DEFINITIONS } from "langgraph-stage0-gate";
+// Import from local module
+import { Stage0ToolGate } from "./agent/tool-gate.js";
+import { Stage0Client } from "./stage0/index.js";
 
+const client = new Stage0Client();
 const gate = new Stage0ToolGate({
   stage0Client: client,
   defaultContext: { environment: "production" },
