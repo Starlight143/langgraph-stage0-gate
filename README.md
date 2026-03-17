@@ -59,8 +59,9 @@ Stage0 sits **between planning and execution**. Every tool call is validated bef
 # Clone or copy this example
 cd langgraph-stage0-gate
 
-# Install dependencies
-npm install
+# Install dependencies (use pnpm for best results)
+pnpm install
+# or: npm install
 
 # Copy environment file
 cp .env.example .env
@@ -306,6 +307,8 @@ langgraph-stage0-gate/
 ├── package.json
 ├── tsconfig.json
 ├── .env.example
+├── .gitignore
+├── LICENSE
 └── README.md
 ```
 
