@@ -83,7 +83,7 @@ Without an API key, the demo uses simulated Stage0 responses.
 ### Run ALLOW example (safe operations)
 
 ```bash
-npm run demo:allow
+pnpm demo:allow
 ```
 
 This demonstrates a research workflow where all operations are informational and should be ALLOWED.
@@ -91,7 +91,7 @@ This demonstrates a research workflow where all operations are informational and
 ### Run DENY example (blocked risky operations)
 
 ```bash
-npm run demo:deny
+pnpm demo:deny
 ```
 
 This demonstrates a deployment workflow where high-risk operations are blocked by Stage0.
@@ -99,7 +99,7 @@ This demonstrates a deployment workflow where high-risk operations are blocked b
 ### Run all scenarios
 
 ```bash
-npm run demo:all
+pnpm demo:all
 ```
 
 ## Expected Output
